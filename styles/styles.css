@@ -1,0 +1,13 @@
+function player() {
+    let selection = prompt("Rock, Paper, or Scissors?");
+    if (selection == "Rock") {
+        chose = ('Rock');
+    } else if (selection == "Paper") {
+        chose = "Paper";
+    } else if (selection == "Scissors") {
+        chose = "Scissors";
+    } else { 
+        alert ("Really? It's such a simple concept.");
+    }
+    return chose;
+}
