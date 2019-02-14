@@ -1,11 +1,11 @@
 function computerPlay() {
     var choice = Math.floor(Math.random() * 3);
     if (choice === 0) {
-        picked = 'Rock';
+        picked = 'Zombies';
     } else if (choice === 1) {
-        picked = 'Scissors';
+        picked = 'Humans';
     } else if (choice === 2) {
-        picked = 'Paper';
+        picked = 'Documents';
     }
     return picked;
 }
@@ -13,14 +13,14 @@ function computerPlay() {
 
 function playRound(playerSelection, computerSelection) {
     let round;
-    if (playerSelection == 'Rock' && computerSelection == 'Paper' ||
-        playerSelection == 'Scissors' && computerSelection == 'Rock' ||
-        playerSelection == 'Paper' && computerSelection == 'Scissors') {
-        round = 'Alphamind wins, ' + computerSelection + ' beats ' + playerSelection;
-    } else if (playerSelection == 'Paper' && computerSelection == 'Rock' ||
-        playerSelection == 'Rock' && computerSelection == 'Scissors' ||
-        playerSelection == 'Scissors' && computerSelection == 'Paper') {
-        round = 'You win, ' + playerSelection + ' beats ' + computerSelection;
+    if (playerSelection == 'Zombies' && computerSelection == 'Documents' ||
+        playerSelection == 'Humans' && computerSelection == 'Zombies' ||
+        playerSelection == 'Documents' && computerSelection == 'Humans') {
+        round = 'Alphamind wins, ' + computerSelection + ' beat ' + playerSelection;
+    } else if (playerSelection == 'Documents' && computerSelection == 'Zombies' ||
+        playerSelection == 'Zombies' && computerSelection == 'Humans' ||
+        playerSelection == 'Humans' && computerSelection == 'Documents') {
+        round = 'You win, ' + playerSelection + ' beat ' + computerSelection;
     } else if (playerSelection === computerSelection) {
         round = 'Tie'
     } else {
@@ -52,7 +52,7 @@ function game() {
     let i = 0;
     checkplayerSelection:
     do {
-        let playerSelection = prompt("Rock, Paper, or Scissors?");
+        let playerSelection = prompt("Zombies, Documents, or Humans?");
         let computerSelection = computerPlay();
         let gameResult = playRound(playerSelection, computerSelection);
         console.log(gameResult);
