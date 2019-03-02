@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
     var choice = Math.floor(Math.random() * 3);
     if (choice === 0) {
@@ -10,17 +13,18 @@ function computerPlay() {
     return picked;
 }
 
+var computerSelection = computerPlay();
 
 function playRound(playerSelection, computerSelection) {
     let round;
     if (playerSelection == 'Zombies' && computerSelection == 'Documents' ||
         playerSelection == 'Humans' && computerSelection == 'Zombies' ||
         playerSelection == 'Documents' && computerSelection == 'Humans') {
-        round = 'Alphamind wins, ' + computerSelection + ' beat ' + playerSelection;
+            round = 'Alphamind wins, ' + computerSelection + ' beat ' + playerSelection;
     } else if (playerSelection == 'Documents' && computerSelection == 'Zombies' ||
         playerSelection == 'Zombies' && computerSelection == 'Humans' ||
         playerSelection == 'Humans' && computerSelection == 'Documents') {
-        round = 'You win, ' + playerSelection + ' beat ' + computerSelection;
+            round = 'You win, ' + playerSelection + ' beat ' + computerSelection;
     } else if (playerSelection === computerSelection) {
         round = 'Tie'
     } else {
@@ -28,36 +32,49 @@ function playRound(playerSelection, computerSelection) {
     } return round;
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
-function updateGame(gameResult) {
-    if (gameResult.includes('Alphamind')) {
+function updateGame(result) {
+    if (result.includes('Alphamind')) {
         computerScore++;
-    } else if (gameResult.includes('You')) {
+    } else if (result.includes('You')) {
         playerScore++;
     }
-    return 'You have' + playerScore + ' wins. Alphamind has ' + computerScore;
+
+  return 'You have ' + playerScore + ' wins. Alphamind has ' + computerScore + '.';
 }
 
-function whoWon() {
-    let winner;
-    if (computerScore > playerScore) {
-        winner = "Alphamind beat you. Just like it would at SC2.";
-    } else if (playerScore > computerScore) {
-        winner = "Very nice. You beat Alphamind.";
-    } else { winner = "Tie ball game. "}return console.log("" + winner + ' You won ' + playerScore + ' and Alphamind won ' + computerScore);
+
+const btns = document.querySelectorAll('#btn');
+const results = document.querySelector('#container')
+
+for (let i = 0; i < btn.length; i++) {
+    btns[i].addEventListener('click', game);
 }
-function game() {
-    let i = 0;
-    checkplayerSelection:
-    do {
-        let playerSelection = prompt("Zombies, Documents, or Humans?");
-        let computerSelection = computerPlay();
-        let gameResult = playRound(playerSelection, computerSelection);
-        console.log(gameResult);
-        console.log(updateGame(gameResult));
-        i++;
-    } while(i < 5);
- whoWon();
+
+const score = document.createElement('p');
+const current = document.createElement('p');
+const final = document.createElement('p');
+
+function game(e) {
+    let playerSelection = e.target.innerText;
+    let result = playRound(playerSelection, computerPlay());
+    let scores = updateGame(result);
+    current.textContent = result;
+    score.textContent = scores;
+    results.appendChild(current);
+    results.appendChild(score);
+
+    if (computerScore == 5) {
+        final.textContent = "Alphamind beat you. Just like it would at SC2.";
+        results.appendChild(final);
+        for (let i = 0; i < btn.length; i++) {
+            btns[i].disabled = true;
+        }
+    }
+    else if (playerScore == 5) {
+        final.textContent = "Very nice. You beat Alphamind.";
+        results.appendChild(final);
+        for (let i = 0; i < btn.length; i++) {
+            btns[i].disabled = true;
+        }
+    }
 }
